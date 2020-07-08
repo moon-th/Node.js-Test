@@ -27,6 +27,7 @@ app.post('/register', (req,res) =>{
 // 그것들을 데이터베이스에 넣어준다.
 
 
+
     const user = new User(req.body)
 
     user.save((err, userInfo) => {
@@ -36,9 +37,6 @@ app.post('/register', (req,res) =>{
         })
     })
 });
-
-
-
 
 
 
