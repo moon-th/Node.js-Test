@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 // 모델의 Schema 지정
-const userSchema = momgoose.Schema({
+const userSchema = mongoose.Schema({
     name:{
         type : String,
         maxlength:50
