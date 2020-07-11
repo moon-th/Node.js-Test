@@ -1,13 +1,31 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const config = require('./config/key');
 
+
 const {User} = require('./models/User');
 const {auth} = require('./middleware/auth');
+
+const cors = require("cors");
+
+let cors_origin = [`http://localhost:3000`];
+
+app.use(
+
+    cors({
+
+        origin: cors_origin, // 허락하고자 하는 요청 주소
+
+        credentials: true, // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
+
+    })
+
+);
+
 //application/x -www-form-urlencoded
 //app.use(bodyParser.urlencoded({extended:true}));
 
@@ -24,6 +42,11 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB connected..')).catch(err => console.log(err))
 
 app.get('/', (req , res) => res.send('Hello World! 태환!!'))
+
+app.get('/api/hello' , (req, res) => {
+    res.send('안녕하세요 ~ ')
+})
+
 
 app.get('/register', (req,res) => {
 // 회원 가입 할때 필요한 정보들을 client에서 가져오면
@@ -103,7 +126,7 @@ app.get('/api/users/logout' , auth, (req,res) =>{
 
 
 
-
+const port = 5000;
 
 app.listen(port, () => console.log('Express app listening on port'+{port}+'!'))
 
