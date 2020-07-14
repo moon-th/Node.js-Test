@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'antd/dist/antd.css';
+import { Provider }  from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import promiseMiddleware from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
+import Reducer from './_reducers';
+
+const creatStoreWithMiddleWare = applyMiddleware(promiseMiddleware , ReduxThunk)(createStore)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider
+    store={creatStoreWithMiddleWare(Reducer
+      ,window._REDUX__DEVTOOLS_EXTENSION__&&
+       window._REDUX__DEVTOOLS_EXTENSION__()
+      )}
+  >
+
+
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
